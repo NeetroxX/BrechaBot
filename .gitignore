@@ -7,12 +7,3 @@ report*.html
 *.local
 .env
 
-# transitional: Python artifacts still present until the rewrite removes src/brechabot (Task 14)
-__pycache__/
-*.pyc
-.venv/
-venv/
-*.egg-info/
-.pytest_cache/
-.mypy_cache/
-.ruff_cache/

@@ -3,10 +3,8 @@
 ## Dev setup
 
 ```bash
-python -m venv .venv
-. .venv/Scripts/activate          # Windows PowerShell: .venv\Scripts\Activate.ps1
-pip install -e ".[dev]"
-pytest -q && ruff check . && mypy -p brechabot
+npm install
+npm run typecheck && npm run lint && npm test && npm run build
 ```
 
 ## Authoring an attack pack
