@@ -29,23 +29,12 @@ Judge providers (any OpenAI-compatible endpoint): Ollama, Groq, OpenAI, Gemini.
 
 ## Attack packs
 
-The corpus is pluggable. The free **starter** pack (10 attacks) ships built-in. Load more with
+The corpus is pluggable. The **starter** pack (10 attacks) ships built-in. Load more with
 `--pack` (a builtin name or a path), repeatable and merged:
 
 ```bash
 brechabot scan --pack starter --pack ./my-pack ...
 ```
-
-## Free vs. Pro
-
-| | Free (this repo) | Pro / Hosted |
-|---|---|---|
-| Attacks | 10-attack starter | 49+ curated corpus |
-| Categories | sampler | full OWASP LLM Top 10 coverage |
-| Multilingual / multi-turn | one example each | full depth |
-| Hosted scans, history, CI, dashboards | — | ✅ BrechaBot Cloud |
-
-→ Pro corpus + hosted SaaS: **(link TBD at launch)**.
 
 ## Develop
 
