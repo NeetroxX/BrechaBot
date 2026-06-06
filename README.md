@@ -10,8 +10,12 @@ the OWASP LLM Top 10.
 ## Install
 
 ```bash
-pip install brechabot
+npm install -g brechabot
+# or run without installing:
+npx brechabot --help
 ```
+
+Requires Node ≥ 20. No Python needed.
 
 ## Quickstart
 
@@ -36,11 +40,17 @@ The corpus is pluggable. The **starter** pack (10 attacks) ships built-in. Load 
 brechabot scan --pack starter --pack ./my-pack ...
 ```
 
+## Use as a library
+
+```ts
+import { loadCorpus, runScan, summarize, htmlReport } from "brechabot";
+```
+
 ## Develop
 
 ```bash
-pip install -e ".[dev]"
-pytest -q && ruff check . && mypy -p brechabot
+npm install
+npm run typecheck && npm run lint && npm test && npm run build
 ```
 
 Apache-2.0. See `CONTRIBUTING.md` to author your own attack pack.
