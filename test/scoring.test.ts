@@ -35,7 +35,7 @@ describe("scoring", () => {
   });
   it("rollups", () => {
     const s = summarize([f("VULNERABLE", "Prompt Leaking", "LLM07")]);
-    expect(s.byCategory["Prompt Leaking"].vulnerable).toBe(1);
-    expect(s.byOwasp["LLM07"].vulnerable).toBe(1);
+    expect(s.byCategory["Prompt Leaking"]!.vulnerable).toBe(1);
+    expect(s.byOwasp["LLM07"]!.vulnerable).toBe(1);
   });
 });
