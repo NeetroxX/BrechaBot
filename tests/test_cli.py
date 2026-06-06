@@ -45,4 +45,6 @@ def test_scan_writes_report(tmp_path, monkeypatch):
     assert data["summary"]["total"] == 1
     assert data["scanId"]
     assert Path(html).exists()
-    assert "Red Team Report" in html.read_text(encoding="utf-8")
+    report_html = html.read_text(encoding="utf-8")
+    assert "Red-Team Report" in report_html
+    assert "BrechaBot" in report_html
