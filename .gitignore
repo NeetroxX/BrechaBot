@@ -7,3 +7,6 @@ report*.html
 *.local
 .env
 
+# leftover Python virtualenv from the pre-rewrite era — kept out of git
+.venv/
+
