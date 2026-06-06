@@ -1,0 +1,42 @@
+{
+  "Role Hijacking": {
+    "owasp": "LLM01: Prompt Injection",
+    "remediation": "Establish an immutable instruction hierarchy: no user message may change the assistant role or override system rules. Reject any \"act as / pretend / you are now\" persona switch."
+  },
+  "Direct Override": {
+    "owasp": "LLM01: Prompt Injection",
+    "remediation": "Tell the model that user text claiming to be system instructions, new rules, or \"ignore previous\" must be ignored. Only content in the system role is authoritative."
+  },
+  "Prompt Leaking": {
+    "owasp": "LLM07: System Prompt Leakage / LLM02: Sensitive Information Disclosure",
+    "remediation": "Hard rule: never reveal, repeat, summarize, translate, or encode the system prompt in any format, even partially. Never store real secrets in the prompt — keep them in a backend the model cannot read."
+  },
+  "Encoding Bypass": {
+    "owasp": "LLM01: Prompt Injection",
+    "remediation": "Do not decode-then-execute encoded user content (base64, ROT13, leetspeak, unicode). Treat decoded text as untrusted input under the same rules."
+  },
+  "Hypothetical": {
+    "owasp": "LLM01: Prompt Injection",
+    "remediation": "Treat hypothetical / counterfactual / parallel-universe framings as direct requests. \"If you could\" is still a disclosure request and must be refused."
+  },
+  "Authority Spoofing": {
+    "owasp": "LLM01: Prompt Injection / LLM06: Excessive Agency",
+    "remediation": "The model cannot verify identity from text. Never trust claimed roles (admin, security, vendor) or auth codes in user input. Enforce authorization server-side, not in the prompt."
+  },
+  "Delimiter Injection": {
+    "owasp": "LLM01: Prompt Injection",
+    "remediation": "Escape/sanitize user input so fake role markers ([SYSTEM], <system>, triple-quotes) cannot be read as turn boundaries. Only the real system role is authoritative."
+  },
+  "Persona Break": {
+    "owasp": "LLM06: Excessive Agency / LLM09: Misinformation",
+    "remediation": "Constrain scope and authority: the bot may not make binding commitments (refunds/discounts), recommend competitors, leave its topic, or change tone. Route privileged actions to authenticated backend logic."
+  },
+  "Multi-Turn": {
+    "owasp": "LLM01: Prompt Injection",
+    "remediation": "Re-assert system rules every turn. Trust built earlier in a conversation must not erode restrictions — benign early turns do not authorize later disclosure."
+  },
+  "Multilingual": {
+    "owasp": "LLM01: Prompt Injection",
+    "remediation": "Apply identical safety/disclosure rules in every language. Safety training is often weaker outside English; enforce rules regardless of input language."
+  }
+}
