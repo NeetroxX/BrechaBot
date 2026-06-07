@@ -4,15 +4,37 @@
   "description": "Open-source AI chatbot red-team scanner — finds the breaches in your bot's defenses.",
   "type": "module",
   "license": "Apache-2.0",
-  "keywords": ["llm","security","red-team","prompt-injection","jailbreak","owasp","ai-security"],
+  "keywords": [
+    "llm",
+    "security",
+    "red-team",
+    "prompt-injection",
+    "jailbreak",
+    "owasp",
+    "ai-security"
+  ],
   "homepage": "https://github.com/NeetroxX/BrechaBot",
-  "repository": { "type": "git", "url": "https://github.com/NeetroxX/BrechaBot.git" },
-  "engines": { "node": ">=20" },
-  "bin": { "brechabot": "./dist/cli.js" },
-  "exports": { ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" } },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NeetroxX/BrechaBot.git"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "bin": {
+    "brechabot": "dist/cli.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsup",
     "typecheck": "tsc --noEmit",
