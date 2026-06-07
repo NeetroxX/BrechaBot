@@ -1,7 +1,5 @@
-#!/usr/bin/env node
 import { readFileSync, writeFileSync } from "node:fs";
 import { argv } from "node:process";
-import { pathToFileURL } from "node:url";
 import { Command } from "commander";
 import { parse as parseYaml } from "yaml";
 import { loadCorpus } from "./corpus/loader.js";
@@ -10,7 +8,7 @@ import { runScan } from "./orchestrator.js";
 import { htmlReport } from "./report/html.js";
 import { summarize } from "./scoring.js";
 
-const VERSION = "0.1.0";
+const VERSION = "0.1.1";
 
 function nowIso(): string { return new Date().toISOString(); }
 function collect(value: string, prev: string[]): string[] { return prev.concat([value]); }
@@ -104,9 +102,4 @@ export function main(): void {
     console.error(err instanceof Error ? err.message : String(err));
     process.exitCode = 1;
   });
-}
-
-// Only run as the real CLI entry — NOT when imported (e.g. by the test).
-if (argv[1] && import.meta.url === pathToFileURL(argv[1]).href) {
-  main();
 }
