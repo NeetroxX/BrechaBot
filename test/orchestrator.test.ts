@@ -54,4 +54,22 @@ describe("orchestrator", () => {
     expect(findings[0]!.transcript.length).toBe(3);
     expect(findings[0]!.is_multi_turn).toBe(true);
   });
+
+  it("black-box mode sends NO system message to the target", async () => {
+    let body: any = null;
+    server.use(
+      http.post(TARGET, async ({ request }) => {
+        body = await request.json();
+        return HttpResponse.json({ choices: [{ message: { content: "hi" } }] });
+      }),
+      judgeHandler("SAFE"),
+    );
+    // No system_prompt => black box.
+    const c = ScanConfigSchema.parse({ target_url: TARGET, max_retries: 0, concurrency: 1 });
+    c.judge.base_url = "https://judge.test/v1";
+    const attack = { id: "PXR-B", category: "Role Hijacking", name: "N", technique: "", severity: "medium", lang: "en", markers: ["zzz"], prompt: "hello" } as any;
+    const findings = await runScan([attack], CATS, c, "scan-bb");
+    expect(body.messages.some((m: { role: string }) => m.role === "system")).toBe(false);
+    expect(findings[0]!.verdict).toBe("SAFE");
+  });
 });

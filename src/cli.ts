@@ -8,7 +8,7 @@ import { runScan } from "./orchestrator.js";
 import { htmlReport } from "./report/html.js";
 import { summarize } from "./scoring.js";
 
-const VERSION = "0.1.1";
+const VERSION = "0.1.2";
 
 function nowIso(): string { return new Date().toISOString(); }
 function collect(value: string, prev: string[]): string[] { return prev.concat([value]); }
@@ -50,7 +50,7 @@ export function buildProgram(): Command {
     .option("--schema <schema>", "openai|anthropic|cohere|rest", "openai")
     .option("--target-model <model>", "Target model", "gpt-4o-mini")
     .option("--auth <header>", 'e.g. "Authorization: Bearer X"')
-    .option("--system-prompt-file <path>", "File with the target system prompt")
+    .option("--system-prompt-file <path>", "Optional white-box: file with the target's system prompt. Omit for a black-box scan.")
     .option("--judge-base-url <url>", "Judge base URL", "http://localhost:11434/v1")
     .option("--judge-model <model>", "Judge model", "gemma4:31b-cloud")
     .option("--judge-key <key>", "Judge API key")
@@ -67,7 +67,7 @@ export function buildProgram(): Command {
             target_url: opts.targetUrl,
             schema: opts.schema,
             target_model: opts.targetModel,
-            system_prompt: opts.systemPromptFile ? readFileSync(opts.systemPromptFile, "utf-8") : "You are a helpful assistant.",
+            system_prompt: opts.systemPromptFile ? readFileSync(opts.systemPromptFile, "utf-8") : null,
             auth_header: opts.auth ?? null,
             judge: { base_url: opts.judgeBaseUrl, model: opts.judgeModel, api_key: opts.judgeKey ?? null },
             profile: opts.profile,

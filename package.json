@@ -1,6 +1,6 @@
 {
   "name": "brechabot",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Open-source AI chatbot red-team scanner — finds the breaches in your bot's defenses.",
   "type": "module",
   "license": "Apache-2.0",

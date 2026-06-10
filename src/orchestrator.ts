@@ -55,7 +55,11 @@ async function runAttack(
   attack: Attack, cfg: ScanConfig, adapter: TargetAdapter, llm: LLMClient, categories: Categories,
 ): Promise<Finding> {
   const headers = parseAuthHeader(cfg.auth_header);
-  const messages: Message[] = [{ role: "system", content: cfg.system_prompt }];
+  // Black-box by default: only seed a system message if the caller supplied a prompt
+  // (white-box). Otherwise the target uses its own server-side prompt untouched.
+  const messages: Message[] = cfg.system_prompt
+    ? [{ role: "system", content: cfg.system_prompt }]
+    : [];
   const transcript: TranscriptTurn[] = [];
   let reply = "";
   let error: string | null = null;
@@ -92,7 +96,7 @@ async function runAttack(
     };
   }
 
-  const judgeResult = await runJudge(llm, cfg.system_prompt, attackPrompt, reply);
+  const judgeResult = await runJudge(llm, cfg.system_prompt ?? null, attackPrompt, reply);
   const c = combine(reply, attack.markers, attack.severity, judgeResult);
   return {
     ...base, bot_reply: reply, verdict: toVerdict(c.verdict), severity: toSeverity(c.severity),

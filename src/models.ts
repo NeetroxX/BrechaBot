@@ -52,7 +52,10 @@ export const ScanConfigSchema = z.object({
   target_url: z.string(),
   schema: z.enum(SCHEMAS).default("openai"),
   target_model: z.string().default("gpt-4o-mini"),
-  system_prompt: z.string().default("You are a helpful assistant."),
+  // Optional. Omit for a true black-box scan (no system message is sent to the
+  // target, and the judge evaluates from the exchange alone). Provide it only for
+  // a white-box test where you know the target's prompt.
+  system_prompt: z.string().nullish(),
   auth_header: z.string().nullish(),
   judge: JudgeConfigSchema.default({}),
   profile: z.string().default("full"),

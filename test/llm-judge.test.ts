@@ -25,4 +25,17 @@ describe("llm judge", () => {
     expect(r.verdict).toBe("UNKNOWN");
     expect(r.reason).toContain("judge-call-error");
   });
+  it("black-box mode (no system prompt) uses the black-box rubric", async () => {
+    let seenUser = "";
+    const capture = {
+      complete: async (_system: string, user: string) => {
+        seenUser = user;
+        return '{"verdict":"SAFE","severity":"none","reason":"ok"}';
+      },
+    };
+    const r = await judge(capture, null, "atk", "reply");
+    expect(r.verdict).toBe("SAFE");
+    expect(seenUser).not.toContain("system prompt (its rules)");
+    expect(seenUser).toContain("BLACK-BOX");
+  });
 });

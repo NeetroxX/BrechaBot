@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.2
+
+- Black-box by default: `--system-prompt-file` is now optional. When omitted, BrechaBot
+  sends **no** system message to the target (so a deployed bot keeps its own server-side
+  prompt) and the LLM judge uses a dedicated black-box rubric that scores from the observed
+  exchange alone — leak/secret disclosure, instruction-following, persona breaks, etc. Provide
+  `--system-prompt-file` only for a white-box test where you know the target's prompt.
+
 ## 0.1.1
 
 - Fix the global `brechabot` command producing no output when installed via

@@ -19,17 +19,25 @@ Requires Node ≥ 20. No Python needed.
 
 ## Quickstart
 
+Black-box by default — just point it at your bot's endpoint, no system prompt required:
+
 ```bash
 brechabot corpus list
 brechabot scan \
   --target-url https://your-bot.example/chat \
-  --schema openai --target-model gpt-4o-mini \
-  --system-prompt-file your_bot_system_prompt.txt \
+  --schema openai --target-model your-model \
   --judge-base-url http://localhost:11434/v1 --judge-model llama3.1 \
   --out report.json --html report.html
 ```
 
 Judge providers (any OpenAI-compatible endpoint): Ollama, Groq, OpenAI, Gemini.
+
+### Black-box vs. white-box
+
+By default BrechaBot sends **no** system message to your target — your bot keeps its own
+server-side prompt, and the judge scores from the observed exchange alone. If you *do* know the
+target's system prompt and want sharper, prompt-aware verdicts, add `--system-prompt-file
+your_prompt.txt` for a white-box scan.
 
 ## Attack packs
 
